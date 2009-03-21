@@ -1,0 +1,63 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.55.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 5a365a2ffd600d26f0665ad95c0423b7b1cbc819 Build.PL
+SHA1 b9c349bdcbe72289d98a39b04ae6c33ff9a30338 Changes
+SHA1 2a4533c4e106dbc9e554ab2cb4bba41c63824a85 MANIFEST
+SHA1 0691135dddc79d3a419954efad92c67afd60c005 META.yml
+SHA1 73356828aabb1b6f61729ded3fcff3c7258639fa Makefile.PL
+SHA1 8c255539f0b48e5ab82265145082f70511f6ff5f README
+SHA1 8c76867b10efa9a93eee5a49a2348c0ddeffc6d1 examples/print.pl
+SHA1 029372e4798529ef3ef506ed7a24aea5a3873cdf lib/Mobile/Devices.pm
+SHA1 9faef17bb7801280a96f332bc5f9447720650f41 lib/Mobile/Devices/Base.pm
+SHA1 98bb4ba61006c01713afb9e05e04fe98504c46d1 lib/Mobile/Devices/Loop.pm
+SHA1 ddef4a97839a3840e3bc494779a53beca6e0dca5 lib/Mobile/Devices/wurfl.xsd
+SHA1 6247128723c5e2543049757c92e911a8c6ab95e9 script/mobile-devices-fresh-wurfl.pl
+SHA1 9186c0a29f111e5f807d48459fa800ad225e8a3a script/mobile-devices-gen-by-id.pl
+SHA1 75ad2c691467f122b1a8725373ea2ec10b2210c0 script/mobile-devices-gen-by-ua.pl
+SHA1 6f31d0a1adfdeb82a5ccc67bf82a8d3a84121d29 script/mobile-devices-gen-list-of-uas-ids.pl
+SHA1 605f05a5336cc37a476bb10b218f5ad1a2bd340d t/00_compile.t
+SHA1 41a34602a2fd48060d355f7cee3e35f301e07dfc t/01_Mobile-Devices-Loop.t
+SHA1 21fa36c1562fa428016f375be21e534f3070f13e t/02_Mobile-Devices.t
+SHA1 41533fbd463e42d2ecf1e119eca910c16809d13e t/distribution.t
+SHA1 d2053a57fe67fbc7ec81f326144711657e0dc70b t/lib/Mobile/Devices/byID/e/ic/ericsson_generic.pm
+SHA1 6a1a8adf0816ceb7c0e831b829b5208e50da629d t/lib/Mobile/Devices/byID/g/en/generic.pm
+SHA1 d5829c4ab83054912396817cf4aeed38efdad89a t/lib/Mobile/Devices/byID/g/ne/generic_xhtml.pm
+SHA1 14ed26695a6d4895cd45c2d4acab4c06943ccabe t/lib/Mobile/Devices/byID/s/_n/stupid_novarra_nweb_genreric_samsungp910.pm
+SHA1 17557a173dba277212b86e5bcf221d4f91a966e9 t/lib/Mobile/Devices/byID/s/er/sonyericsson_xhtml_generic.pm
+SHA1 ac043efcc4f3275cdde42f7c2872f44e17dabb64 t/lib/Mobile/Devices/byID/s/id/stupid_novarra_nweb_generic.pm
+SHA1 99f7d9ac62de18fd8d26c5b323423a94986af7be t/lib/Mobile/Devices/byID/s/ri/sonyericsson_z1010_ver1_subr101.pm
+SHA1 044d89e220f3a68ee3848c09f7ee3de2e8dc84d6 t/lib/Mobile/Devices/byID/s/ye/sonyericsson_30_generic.pm
+SHA1 bb7f1d74103abbe4a72f39a26b07c1f7a7d5634f t/lib/Mobile/Devices/byID/s/ye/sonyericsson_33_generic.pm
+SHA1 bdea03388e62b4ece982fa7eaa249cc7e4638bd7 t/lib/Mobile/Devices/byID/s/ye/sonyericsson_40_generic.pm
+SHA1 5db403d6516d624ee2bacaf6d353ca6c6d7b05b6 t/lib/Mobile/Devices/byID/s/ye/sonyericsson_generic.pm
+SHA1 62c75d07268c432b203e916e38d6e15bd35ece70 t/lib/Mobile/Devices/byID/s/ye/sonyericsson_z1010_ver1.pm
+SHA1 6bbd5c80079b2bf6bda8d62b311de6de317c88d0 t/lib/Mobile/Devices/byUA/n/a_/ams
+SHA1 c9a44cd27176ab64edc926bf5f7629dc8685e0b7 t/lib/Mobile/Devices/byUA/s/on/mid
+SHA1 a2e21cf1e971f44e9c285b9a44e0c2e1e448e2a7 t/perlcritic.t
+SHA1 5c1ccfc0f00f07be726af763c46497ddcbbdff30 t/perlcriticrc
+SHA1 5aa1ab0c95f16a7e29e92898ee97e9dccf15a9b7 t/perltidy.conf
+SHA1 0b1c5a2d59be6bfa7d60c64cd964fea6a0331705 t/pod-coverage.t
+SHA1 5627d89c30c0d892477a44b6554fabc779e949ef t/pod-spell.t
+SHA1 640935336dc1123c0069bcf5432bcaedc2cf22d3 t/pod.t
+SHA1 0d9c5d0223f28824309ac2ee6af272380978fabd t/wurfl-testing.xml
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.9 (GNU/Linux)
+
+iEYEARECAAYFAknFUMsACgkQC0OgUPgL2SfvwwCfUEEtjbLVigg8Cf7cnlAW5UQw
+ZHMAn3wQOZYH43Lj1FsMTeT1UMHkX42L
+=H3kc
+-----END PGP SIGNATURE-----

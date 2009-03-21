@@ -1,0 +1,691 @@
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="unqualified"
+	attributeFormDefault="unqualified"
+>
+
+<!-- root element
+
+	<wurfl>
+
+-->
+<xs:element name="wurfl">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="version" minOccurs="1" maxOccurs="1" />
+			<xs:element name="devices" type="devicesType" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+
+<!--
+
+	<version>
+
+-->
+
+<xs:element name="version">
+<xs:complexType>
+	<xs:sequence>
+		<xs:element name="ver" type="xs:string" minOccurs="1" maxOccurs="1" />
+		<xs:element name="last_updated" type="xs:string" minOccurs="1" maxOccurs="1" />
+		<xs:element name="official_url" type="xs:anyURI" minOccurs="1" maxOccurs="1" />
+		<xs:element name="maintainers" minOccurs="0" maxOccurs="1">
+			<xs:complexType>
+			<xs:sequence>
+				<xs:element name="maintainer" minOccurs="1" maxOccurs="unbounded">
+					<xs:complexType><xs:attributeGroup ref="collaboratorsAttributesGroup" /></xs:complexType>
+				</xs:element>
+			</xs:sequence>		
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="authors" minOccurs="0" maxOccurs="1">
+			<xs:complexType>
+			<xs:sequence>
+			<xs:element name="author" minOccurs="1" maxOccurs="unbounded">
+				<xs:complexType><xs:attributeGroup ref="collaboratorsAttributesGroup" /></xs:complexType>
+			</xs:element>
+			</xs:sequence>		
+			</xs:complexType>
+		</xs:element>		
+		<xs:element name="contributors" minOccurs="0" maxOccurs="1">
+			<xs:complexType>
+			<xs:sequence>
+			<xs:element name="contributor" minOccurs="1" maxOccurs="unbounded">
+				<xs:complexType><xs:attributeGroup ref="collaboratorsAttributesGroup" /></xs:complexType>
+			</xs:element>
+			</xs:sequence>		
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="statement" type="xs:string" minOccurs="0" maxOccurs="1" />
+	</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:attributeGroup name="collaboratorsAttributesGroup">
+	<xs:attribute name="name" use="required" />
+	<xs:attribute name="email" type="xs:string" use="required" />
+	<xs:attribute name="home_page" type="xs:anyURI" use="optional" />
+</xs:attributeGroup>
+
+
+<!--
+
+	<devices>
+
+-->
+
+<xs:complexType name="devicesType">
+	<xs:sequence>
+		<xs:element ref="device" minOccurs="1" maxOccurs="unbounded" />
+	</xs:sequence>
+</xs:complexType>
+
+
+<!--
+
+	<device>
+
+-->
+
+<xs:element name="device">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="group" type="groupType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="fall_back" type="xs:string" />
+		<xs:attribute name="actual_device_root" type="xs:boolean" use="optional" />
+		<xs:attribute name="id" type="xs:string" />
+		<xs:attribute name="user_agent" type="xs:string" use="required"/>
+	</xs:complexType>
+</xs:element>
+
+<xs:complexType name="groupType">
+	<xs:sequence>
+		<xs:element name="capability" type="capabilityType" minOccurs="1" maxOccurs="unbounded"/>
+	</xs:sequence>
+	<xs:attribute name="id" type="groupIds" use="required"/>
+</xs:complexType>
+
+<xs:complexType name="capabilityType">
+	<xs:attribute name="name" type="capability" use="required" />
+	<xs:attribute name="value" type="xs:string" use="required" />
+</xs:complexType>
+
+
+<!-- device capabilities group id-s -->
+<xs:simpleType name="groupIds">
+	<xs:annotation>
+		<xs:documentation>Defines all the valid group ids for device capabilities</xs:documentation>
+	</xs:annotation>
+	<xs:restriction base="xs:string">
+		<xs:enumeration value="ajax" />
+		<xs:enumeration value="bearer" />
+		<xs:enumeration value="bugs" />
+		<xs:enumeration value="cache" />
+		<xs:enumeration value="chtml_ui" />
+		<xs:enumeration value="css" />
+		<xs:enumeration value="display" />
+		<xs:enumeration value="drm" />
+		<xs:enumeration value="flash_lite" />
+		<xs:enumeration value="image_format" />
+		<xs:enumeration value="j2me" />
+		<xs:enumeration value="markup" />
+		<xs:enumeration value="mms" />
+		<xs:enumeration value="object_download" />
+		<xs:enumeration value="pdf" />
+		<xs:enumeration value="playback" />
+		<xs:enumeration value="product_info" />
+		<xs:enumeration value="rss" />
+		<xs:enumeration value="security" />
+		<xs:enumeration value="sms" />
+		<xs:enumeration value="sound_format" />
+		<xs:enumeration value="storage" />
+		<xs:enumeration value="streaming" />
+		<xs:enumeration value="transcoding" />
+		<xs:enumeration value="wap_push" />
+		<xs:enumeration value="wml_ui" />
+		<xs:enumeration value="wta" />
+		<xs:enumeration value="xhtml_ui" />
+		
+		<xs:whiteSpace value="collapse" />
+	</xs:restriction>
+</xs:simpleType>
+
+<!-- list of handsets capabilities -->
+<xs:simpleType name="capability">
+	<xs:annotation>
+		<xs:documentation>Defines all the valid device capabilities</xs:documentation>
+	</xs:annotation>
+	<xs:restriction base="xs:string">
+		<xs:enumeration value="aac" />
+		<xs:enumeration value="accept_third_party_cookie" />
+		<xs:enumeration value="access_key_support" />
+		<xs:enumeration value="ajax_manipulate_css" />
+		<xs:enumeration value="ajax_manipulate_dom" />
+		<xs:enumeration value="ajax_support_event_listener" />
+		<xs:enumeration value="ajax_support_events" />
+		<xs:enumeration value="ajax_support_getelementbyid" />
+		<xs:enumeration value="ajax_support_inner_html" />
+		<xs:enumeration value="ajax_support_javascript" />
+		<xs:enumeration value="ajax_xhr_type" />
+		<xs:enumeration value="amr" />
+		<xs:enumeration value="ascii_support" />
+		<xs:enumeration value="au" />
+		<xs:enumeration value="awb" />
+		<xs:enumeration value="basic_authentication_support" />
+		<xs:enumeration value="bmp" />
+		<xs:enumeration value="brand_name" />
+		<xs:enumeration value="break_list_of_links_with_br_element_recommended" />
+		<xs:enumeration value="built_in_back_button_support" />
+		<xs:enumeration value="built_in_camera" />
+		<xs:enumeration value="built_in_recorder" />
+		<xs:enumeration value="callericon" />
+		<xs:enumeration value="can_skip_aligned_link_row" />
+		<xs:enumeration value="card_title_support" />
+		<xs:enumeration value="chtml_can_display_images_and_text_on_same_line" />
+		<xs:enumeration value="chtml_display_accesskey" />
+		<xs:enumeration value="chtml_displays_image_in_center" />
+		<xs:enumeration value="chtml_make_phone_call_string" />
+		<xs:enumeration value="chtml_table_support" />
+		<xs:enumeration value="colors" />
+		<xs:enumeration value="columns" />
+		<xs:enumeration value="compactmidi" />
+		<xs:enumeration value="connectionless_cache_operation" />
+		<xs:enumeration value="connectionless_service_indication" />
+		<xs:enumeration value="connectionless_service_load" />
+		<xs:enumeration value="connectionoriented_confirmed_cache_operation" />
+		<xs:enumeration value="connectionoriented_confirmed_service_indication" />
+		<xs:enumeration value="connectionoriented_confirmed_service_load" />
+		<xs:enumeration value="connectionoriented_unconfirmed_cache_operation" />
+		<xs:enumeration value="connectionoriented_unconfirmed_service_indication" />
+		<xs:enumeration value="connectionoriented_unconfirmed_service_load" />
+		<xs:enumeration value="cookie_support" />
+		<xs:enumeration value="css_supports_width_as_percentage" />
+		<xs:enumeration value="deck_prefetch_support" />
+		<xs:enumeration value="device_claims_web_support" />
+		<xs:enumeration value="device_os" />
+		<xs:enumeration value="device_os_version" />
+		<xs:enumeration value="digiplug" />
+		<xs:enumeration value="directdownload_support" />
+		<xs:enumeration value="doja_1_0" />
+		<xs:enumeration value="doja_1_5" />
+		<xs:enumeration value="doja_2_0" />
+		<xs:enumeration value="doja_2_1" />
+		<xs:enumeration value="doja_2_2" />
+		<xs:enumeration value="doja_3_0" />
+		<xs:enumeration value="doja_3_5" />
+		<xs:enumeration value="doja_4_0" />
+		<xs:enumeration value="downloadfun_support" />
+		<xs:enumeration value="elective_forms_recommended" />
+		<xs:enumeration value="emoji" />
+		<xs:enumeration value="emptyok" />
+		<xs:enumeration value="empty_option_value_support" />
+		<xs:enumeration value="ems" />
+		<xs:enumeration value="ems_imelody" />
+		<xs:enumeration value="ems_odi" />
+		<xs:enumeration value="ems_upi" />
+		<xs:enumeration value="ems_variablesizedpictures" />
+		<xs:enumeration value="ems_version" />
+		<xs:enumeration value="epoc_bmp" />
+		<xs:enumeration value="evrc" />
+		<xs:enumeration value="expiration_date" />
+		<xs:enumeration value="flash_lite_version" />
+		<xs:enumeration value="fl_browser" />
+		<xs:enumeration value="fl_screensaver" />
+		<xs:enumeration value="fl_standalone" />
+		<xs:enumeration value="fl_sub_lcd" />
+		<xs:enumeration value="fl_wallpaper" />
+		<xs:enumeration value="gif" />
+		<xs:enumeration value="gif_animated" />
+		<xs:enumeration value="gprtf" />
+		<xs:enumeration value="greyscale" />
+		<xs:enumeration value="has_pointing_device" />
+		<xs:enumeration value="has_qwerty_keyboard" />
+		<xs:enumeration value="html_web_3_2" />
+		<xs:enumeration value="html_web_4_0" />
+		<xs:enumeration value="html_wi_imode_compact_generic" />
+		<xs:enumeration value="html_wi_imode_html_1" />
+		<xs:enumeration value="html_wi_imode_html_2" />
+		<xs:enumeration value="html_wi_imode_html_3" />
+		<xs:enumeration value="html_wi_imode_html_4" />
+		<xs:enumeration value="html_wi_imode_html_5" />
+		<xs:enumeration value="html_wi_imode_htmlx_1" />
+		<xs:enumeration value="html_wi_imode_htmlx_1_1" />
+		<xs:enumeration value="html_wi_oma_xhtmlmp_1_0" />
+		<xs:enumeration value="html_wi_w3_xhtmlbasic" />
+		<xs:enumeration value="https_detectable" />
+		<xs:enumeration value="https_support" />
+		<xs:enumeration value="icons_on_menu_items_support" />
+		<xs:enumeration value="image_as_link_support" />
+		<xs:enumeration value="imelody" />
+		<xs:enumeration value="imode_region" />
+		<xs:enumeration value="inline_support" />
+		<xs:enumeration value="insert_br_element_after_widget_recommended" />
+		<xs:enumeration value="iso8859_support" />
+		<xs:enumeration value="is_transcoder" />
+		<xs:enumeration value="is_wireless_device" />
+		<xs:enumeration value="j2me_3dapi" />
+		<xs:enumeration value="j2me_3gpp" />
+		<xs:enumeration value="j2me_aac" />
+		<xs:enumeration value="j2me_amr" />
+		<xs:enumeration value="j2me_au" />
+		<xs:enumeration value="j2me_audio_capture_enabled" />
+		<xs:enumeration value="j2me_bits_per_pixel" />
+		<xs:enumeration value="j2me_bmp" />
+		<xs:enumeration value="j2me_bmp3" />
+		<xs:enumeration value="j2me_btapi" />
+		<xs:enumeration value="j2me_canvas_height" />
+		<xs:enumeration value="j2me_canvas_width" />
+		<xs:enumeration value="j2me_capture_image_formats" />
+		<xs:enumeration value="j2me_cldc_1_0" />
+		<xs:enumeration value="j2me_cldc_1_1" />
+		<xs:enumeration value="j2me_clear_key_code" />
+		<xs:enumeration value="j2me_datefield_broken" />
+		<xs:enumeration value="j2me_datefield_no_accepts_null_date" />
+		<xs:enumeration value="j2me_gif" />
+		<xs:enumeration value="j2me_gif89a" />
+		<xs:enumeration value="j2me_h263" />
+		<xs:enumeration value="j2me_heap_size" />
+		<xs:enumeration value="j2me_http" />
+		<xs:enumeration value="j2me_https" />
+		<xs:enumeration value="j2me_imelody" />
+		<xs:enumeration value="j2me_jpg" />
+		<xs:enumeration value="j2me_jtwi" />
+		<xs:enumeration value="j2me_left_softkey_code" />
+		<xs:enumeration value="j2me_loctapi" />
+		<xs:enumeration value="j2me_max_jar_size" />
+		<xs:enumeration value="j2me_max_record_store_size" />
+		<xs:enumeration value="j2me_middle_softkey_code" />
+		<xs:enumeration value="j2me_midi" />
+		<xs:enumeration value="j2me_midp_1_0" />
+		<xs:enumeration value="j2me_midp_2_0" />
+		<xs:enumeration value="j2me_mmapi_1_0" />
+		<xs:enumeration value="j2me_mmapi_1_1" />
+		<xs:enumeration value="j2me_motorola_lwt" />
+		<xs:enumeration value="j2me_mp3" />
+		<xs:enumeration value="j2me_mp4" />
+		<xs:enumeration value="j2me_mpeg4" />
+		<xs:enumeration value="j2me_nokia_ui" />
+		<xs:enumeration value="j2me_photo_capture_enabled" />
+		<xs:enumeration value="j2me_png" />
+		<xs:enumeration value="j2me_real8" />
+		<xs:enumeration value="j2me_realaudio" />
+		<xs:enumeration value="j2me_realmedia" />
+		<xs:enumeration value="j2me_realvideo" />
+		<xs:enumeration value="j2me_return_key_code" />
+		<xs:enumeration value="j2me_right_softkey_code" />
+		<xs:enumeration value="j2me_rmf" />
+		<xs:enumeration value="j2me_screen_height" />
+		<xs:enumeration value="j2me_screen_width" />
+		<xs:enumeration value="j2me_select_key_code" />
+		<xs:enumeration value="j2me_serial" />
+		<xs:enumeration value="j2me_siemens_color_game" />
+		<xs:enumeration value="j2me_siemens_extension" />
+		<xs:enumeration value="j2me_socket" />
+		<xs:enumeration value="j2me_storage_size" />
+		<xs:enumeration value="j2me_svgt" />
+		<xs:enumeration value="j2me_udp" />
+		<xs:enumeration value="j2me_video_capture_enabled" />
+		<xs:enumeration value="j2me_wav" />
+		<xs:enumeration value="j2me_wbmp" />
+		<xs:enumeration value="j2me_wma" />
+		<xs:enumeration value="j2me_wmapi_1_0" />
+		<xs:enumeration value="j2me_wmapi_1_1" />
+		<xs:enumeration value="j2me_wmapi_2_0" />
+		<xs:enumeration value="j2me_xmf" />
+		<xs:enumeration value="jpg" />
+		<xs:enumeration value="largeoperatorlogo" />
+		<xs:enumeration value="marketing_name" />
+		<xs:enumeration value="max_data_rate" />
+		<xs:enumeration value="max_deck_size" />
+		<xs:enumeration value="max_image_height" />
+		<xs:enumeration value="max_image_width" />
+		<xs:enumeration value="max_length_of_password" />
+		<xs:enumeration value="max_length_of_username" />
+		<xs:enumeration value="max_no_of_bookmarks" />
+		<xs:enumeration value="max_no_of_connection_settings" />
+		<xs:enumeration value="max_object_size" />
+		<xs:enumeration value="max_url_length_bookmark" />
+		<xs:enumeration value="max_url_length_cached_page" />
+		<xs:enumeration value="max_url_length_homepage" />
+		<xs:enumeration value="max_url_length_in_requests" />
+		<xs:enumeration value="menu_with_list_of_links_recommended" />
+		<xs:enumeration value="menu_with_select_element_recommended" />
+		<xs:enumeration value="midi_monophonic" />
+		<xs:enumeration value="midi_polyphonic" />
+		<xs:enumeration value="mld" />
+		<xs:enumeration value="mmf" />
+		<xs:enumeration value="mms_3gpp" />
+		<xs:enumeration value="mms_3gpp2" />
+		<xs:enumeration value="mms_amr" />
+		<xs:enumeration value="mms_bmp" />
+		<xs:enumeration value="mms_evrc" />
+		<xs:enumeration value="mms_gif_animated" />
+		<xs:enumeration value="mms_gif_static" />
+		<xs:enumeration value="mms_jad" />
+		<xs:enumeration value="mms_jar" />
+		<xs:enumeration value="mms_jpeg_baseline" />
+		<xs:enumeration value="mms_jpeg_progressive" />
+		<xs:enumeration value="mms_max_frame_rate" />
+		<xs:enumeration value="mms_max_height" />
+		<xs:enumeration value="mms_max_size" />
+		<xs:enumeration value="mms_max_width" />
+		<xs:enumeration value="mms_midi_monophonic" />
+		<xs:enumeration value="mms_midi_polyphonic" />
+		<xs:enumeration value="mms_midi_polyphonic_voices" />
+		<xs:enumeration value="mms_mmf" />
+		<xs:enumeration value="mms_mp3" />
+		<xs:enumeration value="mms_mp4" />
+		<xs:enumeration value="mms_nokia_3dscreensaver" />
+		<xs:enumeration value="mms_nokia_operatorlogo" />
+		<xs:enumeration value="mms_nokia_ringingtone" />
+		<xs:enumeration value="mms_nokia_wallpaper" />
+		<xs:enumeration value="mms_ota_bitmap" />
+		<xs:enumeration value="mms_png" />
+		<xs:enumeration value="mms_qcelp" />
+		<xs:enumeration value="mms_rmf" />
+		<xs:enumeration value="mms_spmidi" />
+		<xs:enumeration value="mms_symbian_install" />
+		<xs:enumeration value="mms_vcalendar" />
+		<xs:enumeration value="mms_vcard" />
+		<xs:enumeration value="mms_video" />
+		<xs:enumeration value="mms_wav" />
+		<xs:enumeration value="mms_wbmp" />
+		<xs:enumeration value="mms_wbxml" />
+		<xs:enumeration value="mms_wml" />
+		<xs:enumeration value="mms_wmlc" />
+		<xs:enumeration value="mms_xmf" />
+		<xs:enumeration value="mobile_browser" />
+		<xs:enumeration value="mobile_browser_version" />
+		<xs:enumeration value="model_extra_info" />
+		<xs:enumeration value="model_name" />
+		<xs:enumeration value="mp3" />
+		<xs:enumeration value="multipart_support" />
+		<xs:enumeration value="nokia_edition" />
+		<xs:enumeration value="nokiaring" />
+		<xs:enumeration value="nokia_ringtone" />
+		<xs:enumeration value="nokia_series" />
+		<xs:enumeration value="nokiavcal" />
+		<xs:enumeration value="nokiavcard" />
+		<xs:enumeration value="nokia_voice_call" />
+		<xs:enumeration value="numbered_menus" />
+		<xs:enumeration value="oma_support" />
+		<xs:enumeration value="oma_v_1_0_combined_delivery" />
+		<xs:enumeration value="oma_v_1_0_forwardlock" />
+		<xs:enumeration value="oma_v_1_0_separate_delivery" />
+		<xs:enumeration value="operatorlogo" />
+		<xs:enumeration value="opwv_wml_extensions_support" />
+		<xs:enumeration value="opwv_xhtml_extensions_support" />
+		<xs:enumeration value="panasonic" />
+		<xs:enumeration value="pdf_support" />
+		<xs:enumeration value="phone_id_provided" />
+		<xs:enumeration value="physical_screen_height" />
+		<xs:enumeration value="physical_screen_width" />
+		<xs:enumeration value="picture" />
+		<xs:enumeration value="picture_bmp" />
+		<xs:enumeration value="picture_colors" />
+		<xs:enumeration value="picture_df_size_limit" />
+		<xs:enumeration value="picture_directdownload_size_limit" />
+		<xs:enumeration value="picture_gif" />
+		<xs:enumeration value="picture_greyscale" />
+		<xs:enumeration value="picture_inline_size_limit" />
+		<xs:enumeration value="picture_jpg" />
+		<xs:enumeration value="picture_max_height" />
+		<xs:enumeration value="picture_max_width" />
+		<xs:enumeration value="picturemessage" />
+		<xs:enumeration value="picture_oma_size_limit" />
+		<xs:enumeration value="picture_png" />
+		<xs:enumeration value="picture_preferred_height" />
+		<xs:enumeration value="picture_preferred_width" />
+		<xs:enumeration value="picture_resize" />
+		<xs:enumeration value="picture_wbmp" />
+		<xs:enumeration value="playback_3g2" />
+		<xs:enumeration value="playback_3gpp" />
+		<xs:enumeration value="playback_acodec_aac" />
+		<xs:enumeration value="playback_acodec_amr" />
+		<xs:enumeration value="playback_acodec_qcelp" />
+		<xs:enumeration value="playback_df_size_limit" />
+		<xs:enumeration value="playback_directdownload_size_limit" />
+		<xs:enumeration value="playback_inline_size_limit" />
+		<xs:enumeration value="playback_mov" />
+		<xs:enumeration value="playback_mp4" />
+		<xs:enumeration value="playback_oma_size_limit" />
+		<xs:enumeration value="playback_real_media" />
+		<xs:enumeration value="playback_vcodec_h263_0" />
+		<xs:enumeration value="playback_vcodec_h263_3" />
+		<xs:enumeration value="playback_vcodec_h264_bp" />
+		<xs:enumeration value="playback_vcodec_mpeg4_asp" />
+		<xs:enumeration value="playback_vcodec_mpeg4_sp" />
+		<xs:enumeration value="playback_wmv" />
+		<xs:enumeration value="png" />
+		<xs:enumeration value="pointing_method" />
+		<xs:enumeration value="post_method_support" />
+		<xs:enumeration value="preferred_markup" />
+		<xs:enumeration value="progressive_download" />
+		<xs:enumeration value="proportional_font" />
+		<xs:enumeration value="qcelp" />
+		<xs:enumeration value="receiver" />
+		<xs:enumeration value="release_date" />
+		<xs:enumeration value="resolution_height" />
+		<xs:enumeration value="resolution_width" />
+		<xs:enumeration value="ringtone" />
+		<xs:enumeration value="ringtone_3gpp" />
+		<xs:enumeration value="ringtone_aac" />
+		<xs:enumeration value="ringtone_amr" />
+		<xs:enumeration value="ringtone_awb" />
+		<xs:enumeration value="ringtone_compactmidi" />
+		<xs:enumeration value="ringtone_df_size_limit" />
+		<xs:enumeration value="ringtone_digiplug" />
+		<xs:enumeration value="ringtone_directdownload_size_limit" />
+		<xs:enumeration value="ringtone_imelody" />
+		<xs:enumeration value="ringtone_inline_size_limit" />
+		<xs:enumeration value="ringtone_midi_monophonic" />
+		<xs:enumeration value="ringtone_midi_polyphonic" />
+		<xs:enumeration value="ringtone_mmf" />
+		<xs:enumeration value="ringtone_mp3" />
+		<xs:enumeration value="ringtone_oma_size_limit" />
+		<xs:enumeration value="ringtone_qcelp" />
+		<xs:enumeration value="ringtone_rmf" />
+		<xs:enumeration value="ringtone_spmidi" />
+		<xs:enumeration value="ringtone_voices" />
+		<xs:enumeration value="ringtone_wav" />
+		<xs:enumeration value="ringtone_xmf" />
+		<xs:enumeration value="rmf" />
+		<xs:enumeration value="rows" />
+		<xs:enumeration value="rss_support" />
+		<xs:enumeration value="sagem_v1" />
+		<xs:enumeration value="sagem_v2" />
+		<xs:enumeration value="sckl_groupgraphic" />
+		<xs:enumeration value="sckl_operatorlogo" />
+		<xs:enumeration value="sckl_ringtone" />
+		<xs:enumeration value="sckl_vcalendar" />
+		<xs:enumeration value="sckl_vcard" />
+		<xs:enumeration value="screensaver" />
+		<xs:enumeration value="screensaver_bmp" />
+		<xs:enumeration value="screensaver_colors" />
+		<xs:enumeration value="screensaver_df_size_limit" />
+		<xs:enumeration value="screensaver_directdownload_size_limit" />
+		<xs:enumeration value="screensaver_gif" />
+		<xs:enumeration value="screensaver_greyscale" />
+		<xs:enumeration value="screensaver_inline_size_limit" />
+		<xs:enumeration value="screensaver_jpg" />
+		<xs:enumeration value="screensaver_max_height" />
+		<xs:enumeration value="screensaver_max_width" />
+		<xs:enumeration value="screensaver_oma_size_limit" />
+		<xs:enumeration value="screensaver_png" />
+		<xs:enumeration value="screensaver_preferred_height" />
+		<xs:enumeration value="screensaver_preferred_width" />
+		<xs:enumeration value="screensaver_resize" />
+		<xs:enumeration value="screensaver_wbmp" />
+		<xs:enumeration value="sdio" />
+		<xs:enumeration value="sender" />
+		<xs:enumeration value="siemens_logo_height" />
+		<xs:enumeration value="siemens_logo_width" />
+		<xs:enumeration value="siemens_ota" />
+		<xs:enumeration value="siemens_screensaver_height" />
+		<xs:enumeration value="siemens_screensaver_width" />
+		<xs:enumeration value="smf" />
+		<xs:enumeration value="softkey_support" />
+		<xs:enumeration value="sp_midi" />
+		<xs:enumeration value="streaming_3g2" />
+		<xs:enumeration value="streaming_3gpp" />
+		<xs:enumeration value="streaming_acodec_aac" />
+		<xs:enumeration value="streaming_acodec_amr" />
+		<xs:enumeration value="streaming_flv" />
+		<xs:enumeration value="streaming_mov" />
+		<xs:enumeration value="streaming_mp4" />
+		<xs:enumeration value="streaming_real_media" />
+		<xs:enumeration value="streaming_real_media_10" />
+		<xs:enumeration value="streaming_real_media_8" />
+		<xs:enumeration value="streaming_real_media_9" />
+		<xs:enumeration value="streaming_vcodec_h263_0" />
+		<xs:enumeration value="streaming_vcodec_h263_3" />
+		<xs:enumeration value="streaming_vcodec_h264_bp" />
+		<xs:enumeration value="streaming_vcodec_mpeg4_asp" />
+		<xs:enumeration value="streaming_vcodec_mpeg4_sp" />
+		<xs:enumeration value="streaming_video" />
+		<xs:enumeration value="streaming_video_acodec_aac" />
+		<xs:enumeration value="streaming_video_acodec_aac_ltp" />
+		<xs:enumeration value="streaming_video_acodec_amr" />
+		<xs:enumeration value="streaming_video_acodec_awb" />
+		<xs:enumeration value="streaming_video_max_audio_bit_rate" />
+		<xs:enumeration value="streaming_video_max_bit_rate" />
+		<xs:enumeration value="streaming_video_max_frame_rate" />
+		<xs:enumeration value="streaming_video_max_video_bit_rate" />
+		<xs:enumeration value="streaming_video_min_video_bit_rate" />
+		<xs:enumeration value="streaming_video_qcif" />
+		<xs:enumeration value="streaming_video_qcif_max_height" />
+		<xs:enumeration value="streaming_video_qcif_max_width" />
+		<xs:enumeration value="streaming_video_size_limit" />
+		<xs:enumeration value="streaming_video_sqcif" />
+		<xs:enumeration value="streaming_video_sqcif_max_height" />
+		<xs:enumeration value="streaming_video_sqcif_max_width" />
+		<xs:enumeration value="streaming_video_vcodec_h263_0" />
+		<xs:enumeration value="streaming_video_vcodec_h263_3" />
+		<xs:enumeration value="streaming_video_vcodec_h264" />
+		<xs:enumeration value="streaming_video_vcodec_mpeg4" />
+		<xs:enumeration value="streaming_wmv" />
+		<xs:enumeration value="svgt_1_1" />
+		<xs:enumeration value="svgt_1_1_plus" />
+		<xs:enumeration value="table_support" />
+		<xs:enumeration value="text_imelody" />
+		<xs:enumeration value="tiff" />
+		<xs:enumeration value="times_square_mode_support" />
+		<xs:enumeration value="time_to_live_support" />
+		<xs:enumeration value="total_cache_disable_support" />
+		<xs:enumeration value="transcoder_ua_header" />
+		<xs:enumeration value="transparent_png_alpha" />
+		<xs:enumeration value="transparent_png_index" />
+		<xs:enumeration value="uaprof" />
+		<xs:enumeration value="uaprof2" />
+		<xs:enumeration value="uaprof3" />
+		<xs:enumeration value="unique" />
+		<xs:enumeration value="ununiqueness_handler" />
+		<xs:enumeration value="utf8_support" />
+		<xs:enumeration value="video" />
+		<xs:enumeration value="video_3gpp" />
+		<xs:enumeration value="video_3gpp2" />
+		<xs:enumeration value="video_acodec_aac" />
+		<xs:enumeration value="video_acodec_aac_ltp" />
+		<xs:enumeration value="video_acodec_amr" />
+		<xs:enumeration value="video_acodec_awb" />
+		<xs:enumeration value="video_acodec_qcelp" />
+		<xs:enumeration value="video_df_size_limit" />
+		<xs:enumeration value="video_directdownload_size_limit" />
+		<xs:enumeration value="video_inline_size_limit" />
+		<xs:enumeration value="video_max_frame_rate" />
+		<xs:enumeration value="video_max_height" />
+		<xs:enumeration value="video_max_width" />
+		<xs:enumeration value="video_mov" />
+		<xs:enumeration value="video_mp4" />
+		<xs:enumeration value="video_oma_size_limit" />
+		<xs:enumeration value="video_preferred_height" />
+		<xs:enumeration value="video_preferred_width" />
+		<xs:enumeration value="video_qcif" />
+		<xs:enumeration value="video_real_media_10" />
+		<xs:enumeration value="video_real_media_8" />
+		<xs:enumeration value="video_real_media_9" />
+		<xs:enumeration value="video_sqcif" />
+		<xs:enumeration value="video_vcodec_h263_0" />
+		<xs:enumeration value="video_vcodec_h263_3" />
+		<xs:enumeration value="video_vcodec_h264" />
+		<xs:enumeration value="video_vcodec_mpeg4" />
+		<xs:enumeration value="video_wmv" />
+		<xs:enumeration value="voices" />
+		<xs:enumeration value="voicexml" />
+		<xs:enumeration value="vpn" />
+		<xs:enumeration value="wallpaper" />
+		<xs:enumeration value="wallpaper_bmp" />
+		<xs:enumeration value="wallpaper_colors" />
+		<xs:enumeration value="wallpaper_df_size_limit" />
+		<xs:enumeration value="wallpaper_directdownload_size_limit" />
+		<xs:enumeration value="wallpaper_gif" />
+		<xs:enumeration value="wallpaper_greyscale" />
+		<xs:enumeration value="wallpaper_inline_size_limit" />
+		<xs:enumeration value="wallpaper_jpg" />
+		<xs:enumeration value="wallpaper_max_height" />
+		<xs:enumeration value="wallpaper_max_width" />
+		<xs:enumeration value="wallpaper_oma_size_limit" />
+		<xs:enumeration value="wallpaper_png" />
+		<xs:enumeration value="wallpaper_preferred_height" />
+		<xs:enumeration value="wallpaper_preferred_width" />
+		<xs:enumeration value="wallpaper_resize" />
+		<xs:enumeration value="wallpaper_tiff" />
+		<xs:enumeration value="wallpaper_wbmp" />
+		<xs:enumeration value="wap_push_support" />
+		<xs:enumeration value="wav" />
+		<xs:enumeration value="wbmp" />
+		<xs:enumeration value="wifi" />
+		<xs:enumeration value="wizards_recommended" />
+		<xs:enumeration value="wml_1_1" />
+		<xs:enumeration value="wml_1_2" />
+		<xs:enumeration value="wml_1_3" />
+		<xs:enumeration value="wml_can_display_images_and_text_on_same_line" />
+		<xs:enumeration value="wml_displays_image_in_center" />
+		<xs:enumeration value="wml_make_phone_call_string" />
+		<xs:enumeration value="wrap_mode_support" />
+		<xs:enumeration value="wta_misc" />
+		<xs:enumeration value="wta_pdc" />
+		<xs:enumeration value="wta_phonebook" />
+		<xs:enumeration value="wta_voice_call" />
+		<xs:enumeration value="xhtml_allows_disabled_form_elements" />
+		<xs:enumeration value="xhtml_autoexpand_select" />
+		<xs:enumeration value="xhtml_display_accesskey" />
+		<xs:enumeration value="xhtml_document_title_support" />
+		<xs:enumeration value="xhtml_file_upload" />
+		<xs:enumeration value="xhtml_format_as_attribute" />
+		<xs:enumeration value="xhtml_format_as_css_property" />
+		<xs:enumeration value="xhtml_honors_bgcolor" />
+		<xs:enumeration value="xhtml_make_phone_call_string" />
+		<xs:enumeration value="xhtml_marquee_as_css_property" />
+		<xs:enumeration value="xhtmlmp_preferred_mime_type" />
+		<xs:enumeration value="xhtml_nowrap_mode" />
+		<xs:enumeration value="xhtml_preferred_charset" />
+		<xs:enumeration value="xhtml_readable_background_color1" />
+		<xs:enumeration value="xhtml_readable_background_color2" />
+		<xs:enumeration value="xhtml_select_as_dropdown" />
+		<xs:enumeration value="xhtml_select_as_popup" />
+		<xs:enumeration value="xhtml_select_as_radiobutton" />
+		<xs:enumeration value="xhtml_send_mms_string" />
+		<xs:enumeration value="xhtml_send_sms_string" />
+		<xs:enumeration value="xhtml_support_level" />
+		<xs:enumeration value="xhtml_supports_css_cell_table_coloring" />
+		<xs:enumeration value="xhtml_supports_file_upload" />
+		<xs:enumeration value="xhtml_supports_forms_in_table" />
+		<xs:enumeration value="xhtml_supports_iframe" />
+		<xs:enumeration value="xhtml_supports_inline_input" />
+		<xs:enumeration value="xhtml_supports_invisible_text" />
+		<xs:enumeration value="xhtml_supports_monospace_font" />
+		<xs:enumeration value="xhtml_supports_table_for_layout" />
+		<xs:enumeration value="xhtml_support_wml2_namespace" />
+		<xs:enumeration value="xhtml_table_support" />
+		<xs:enumeration value="xmf" />
+		
+		<xs:whiteSpace value="collapse" />
+	</xs:restriction>
+</xs:simpleType>
+
+</xs:schema>
+
