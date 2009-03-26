@@ -40,4 +40,5 @@ my $builder = Module::Build->new(
     sign                => 1,
 );
 
+$builder->add_build_element('xsd');
 $builder->create_build_script();

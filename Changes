@@ -1,4 +1,7 @@
 Revision history for Mobile::Device
 
+0.02    26.03.2009
+    * Build.PL fix
+
 0.01    28.02.2009
         First version, released on an unsuspecting world.

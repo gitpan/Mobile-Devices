@@ -1,6 +1,6 @@
 ---
 name: Mobile-Devices
-version: 0.01
+version: 0.02
 author:
   - 'Jozef Kutej <jozef@kutej.net>'
 abstract: search for and get mobile device information
@@ -29,7 +29,7 @@ build_requires:
 provides:
   Mobile::Devices:
     file: lib/Mobile/Devices.pm
-    version: 0.01
+    version: 0.02
   Mobile::Devices::Base:
     file: lib/Mobile/Devices/Base.pm
     version: 0.01
