@@ -16,45 +16,23 @@ mobile-devices-gen-list-of-uas-ids.pl - generate UAs.pm and IDs.pm with list of 
 
 =cut
 
-use Mobile::Devices::Loop;
-    
 use strict;
 use version;
 
 use Template;
 use File::Spec;
 use FindBin '$Bin';
-use File::Basename 'dirname';
-
-use Getopt::Long;
 use Pod::Usage;
 
-use Mobile::Devices::Base;
+use Mobile::Devices::Loop::GetOptions;
 
 
 exit main();
 
 sub main {  
-    my $help;
-    my $wurfl_filename = File::Spec->catfile(
-        dirname($INC{File::Spec->catfile('Mobile', 'Devices', 'Base.pm')}),
-        'wurfl.xml',
-    );
-    my $lib_folder     = File::Spec->catfile(
-        dirname($INC{File::Spec->catfile('Mobile', 'Devices', 'Base.pm')}),
-        '..',
-        '..',
-    );
-    GetOptions(
-        'help|h'    => \$help,
-        'wurfl|w=s' => \$wurfl_filename,
-        'lib|l=s'   => \$lib_folder,
-    ) or pod2usage;
-    pod2usage if $help;
-
-    my $device_loop = Mobile::Devices::Loop->new(
-        wurfl_xml_filename => , $wurfl_filename,
-    );
+    my $loop_options = Mobile::Devices::Loop::GetOptions->new() or pod2usage();
+    my $lib_folder   = $loop_options->lib_folder;
+    my $devices_loop = $loop_options->devices_loop;
 
     my $template = Template->new({
         PRE_CHOMP    => 1,
@@ -66,7 +44,7 @@ sub main {
     
     my @uas;
     my @ids;
-    while (my $device = $device_loop->next_device()) {
+    while (my $device = $devices_loop->next_device()) {
         my $ua = $device->{'user_agent'};
         $ua =~ s/'/\\'/g;
         push @uas, $ua
@@ -79,7 +57,7 @@ sub main {
         template(),
         {
             'type'    => 'UAs',
-            'version' => $device_loop->version_date,
+            'version' => $devices_loop->version_date,
             'all'     => \@uas,
         },
         $uas_pm_filename,
@@ -88,7 +66,7 @@ sub main {
         template(),
         {
             'type'    => 'IDs',
-            'version' => $device_loop->version_date,
+            'version' => $devices_loop->version_date,
             'all'     => \@ids,
         },
         $ids_pm_filename,

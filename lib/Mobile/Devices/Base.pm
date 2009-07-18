@@ -46,7 +46,11 @@ sub TO_JSON {
     
     my %hash = (
         map  { my $v = $self->$_; (defined $v ? ($_ => $v) : ()) }
-        @{$self->capabilities}
+        (
+            @{$self->capabilities},
+            'user_agent',
+            'wurfl_id',
+        )
     );
     
     return \%hash;

@@ -3,8 +3,8 @@ NAME
 
 SYNOPSIS
         use Mobile::Devices;
-        
-    my $devices = Mobile::Devices->new('search_base' => File::Spec->catfile($Bin, 'wurfl-data'));
+    
+        my $devices = Mobile::Devices->new('search_base' => File::Spec->catfile($Bin, 'wurfl-data'));
         my $device  = $devices->search( 'id' => 'nokia_6131nfc_ver1' );
         my $device2 = $devices->search( 'user_agent' => 'Nokia6131NFC' );
 
@@ -13,42 +13,51 @@ DESCRIPTION
 
 PROPERTIES
   search_base
+
     Sets the folder where generated files ( Mobile/Device/IDs.pm,
     Mobile/Device/IDs/*, Mobile/Device/UAs.pm, Mobile/Device/UAs/*,
     Mobile/Device/wurfl.xml, Mobile/Device/wurfl.zip, ) will be looked for.
 
-    By default its "dirname($INC{'Mobile/Devices.pm'})" - location of this
+    By default its `dirname($INC{'Mobile/Devices.pm'})' - location of this
     module.
 
 METHODS
   new()
+
     Object constructor.
 
   search($by => $ident)
-    Lookup the module device. Either by c<ua> or by "id".
+
+    Lookup the module device. Either by c<ua> or by `id'.
 
   search_by_id($id)
-    Lookup device by it's WURFL id string $id.
+
+    Lookup device by it's WURFL id string `$id'.
 
   search_by_ua($ua)
-    Lookup device by it's user-agent string $ua.
+
+    Lookup device by it's user-agent string `$ua'.
 
   id_by_ua($ua)
-    Returns WURFL id associated with $ua.
+
+    Returns WURFL id associated with `$ua'.
 
   ua_to_filename($ua)
-    Returns filename where the $ua to id mapping should be stored.
+
+    Returns filename where the `$ua' to id mapping should be stored.
 
   id_to_filename($id)
-    Returns filename where the WURFL information for device with $id is
+
+    Returns filename where the WURFL information for device with `$id' is
     stored.
 
   id_to_modulename($id)
-    Returns Perl module name where the wurfl information for device with $id
-    is stored.
+
+    Returns Perl module name where the wurfl information for device with
+    `$id' is stored.
 
 SEE ALSO
-    Mobile::Devices::Loop, <http://wurfl.sf.net/>, Mobile::Wurfl,
+    Mobile::Devices::Loop, http://wurfl.sf.net/, Mobile::Wurfl,
     Mobile::WURFL
 
 AUTHOR

@@ -19,51 +19,28 @@ mobile-devices-gen-by-id.pl - generate Mobile/Devices/byID/
 use strict;
 use version;
 
-use Mobile::Devices;
-use Mobile::Devices::Loop;
-use File::Basename 'dirname';
-use File::Spec;
+use Mobile::Devices::Loop::GetOptions;
 use File::Path 'mkpath';
 use FindBin '$Bin';
 use Template;
-use Getopt::Long;
 use Pod::Usage;
-
-use Mobile::Devices::Base;
+use File::Basename 'dirname';
 
 
 exit main();
 
 sub main {  
-    my $help;
-    my $wurfl_filename = File::Spec->catfile(
-        dirname($INC{File::Spec->catfile('Mobile', 'Devices', 'Base.pm')}),
-        'wurfl.xml',
-    );
-    my $lib_folder     = File::Spec->catfile(
-        dirname($INC{File::Spec->catfile('Mobile', 'Devices', 'Base.pm')}),
-        '..',
-        '..',
-    );
-    GetOptions(
-        'help|h'    => \$help,
-        'wurfl|w=s' => \$wurfl_filename,
-        'lib|l=s'   => \$lib_folder,
-    ) or pod2usage;
-    pod2usage if $help;
+    my $loop_options = Mobile::Devices::Loop::GetOptions->new() or pod2usage();
+    my $lib_folder   = $loop_options->lib_folder;
+    my $devices_loop = $loop_options->devices_loop;
+    my $devices      = $loop_options->devices;
 
-    my $device_loop = Mobile::Devices::Loop->new(
-        wurfl_xml_filename => , $wurfl_filename,
-    );
-    my $devices = Mobile::Devices->new(
-        'search_base' => $lib_folder,
-    );
     my $template = Template->new({
         PRE_CHOMP    => 1,
         POST_CHOMP   => 0,
     });
     
-    while (my $device = $device_loop->next_device()) {
+    while (my $device = $devices_loop->next_device()) {
         my $id = $device->{'id'};
         die 'missing id'
             if not defined $id;
@@ -80,7 +57,7 @@ sub main {
     		template(),
     		{
                 'package_name' => $package_name,
-                'version'      => $device_loop->version_date,
+                'version'      => $devices_loop->version_date,
                 'extends'      => $extends,
                 'device'       => $device,
     		},
@@ -103,6 +80,13 @@ our $VERSION = '[% version %]';
 use base 'Mobile::Devices::Base';
 
 sub fall_back  { };
+sub groups {
+    return [
+        [% FOREACH group IN device.group.sort('id') %]
+        '[% group.id %]',
+        [% END %]
+    ];
+}
 sub capabilities {
     return [
         [% FOREACH group IN device.group %]
@@ -112,18 +96,38 @@ sub capabilities {
         [% END %]
     ];
 }
+sub group_capabilities {
+    return {
+        [% FOREACH group IN device.group %]
+        '[% group.id %]' => [
+            [% FOREACH cap_name IN group.capability.sort('name') %]
+                '[% cap_name.name %]',
+            [% END %]
+        ],
+        [% END %]
+    };
+}
+sub capability_group {
+    return {
+        [% FOREACH group IN device.group %]
+        [% FOREACH cap_name IN group.capability %]
+            '[% cap_name.name %]' => '[% group.id %]',
+        [% END %]
+        [% END %]
+    };
+}
 
 [% ELSE %]
 use base '[% extends %]';
 sub fall_back  { [% extends %]->new() };
 [% END %]
 
-sub wurfl_id   { '[% device.id | replace("'", "\\'") %]' };
-sub user_agent { '[% device.user_agent | replace("'", "\\'") %]' };
+sub wurfl_id   { '[% device.id | replace("'", "\\\'") %]' };
+sub user_agent { '[% device.user_agent | replace("'", "\\\'") %]' };
 [% FOREACH group IN device.group %]
 # group id: [% group.id %]
 [% FOREACH cap_name IN group.capability %]
-sub [% cap_name.name %] { '[% cap_name.value | replace("'", "\\'") %]' };
+sub [% cap_name.name %] { '[% cap_name.value | replace("'", "\\\'") %]' };
 [% END %]
 [% END %]
 

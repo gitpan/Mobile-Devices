@@ -19,8 +19,6 @@ mobile-devices-fresh-wurfl.pl - fetch wurfl.xml
 use strict;
 use version;
 
-use File::Basename 'dirname';
-use Getopt::Long;
 use Pod::Usage;
 use LWP::Simple qw(mirror is_success status_message $ua RC_NOT_MODIFIED);
 use File::Spec;
@@ -29,30 +27,22 @@ use File::Copy 'copy';
 use Archive::Extract;
 use Archive::Zip;
 
-use Mobile::Devices::Base;
+use Mobile::Devices::Loop::GetOptions;
 
 
-our $WURFL_URL = 'http://wurfl.sourceforge.net/wurfl.zip';
+our $WURFL_URL = 'http://switch.dl.sourceforge.net/sourceforge/wurfl/wurfl-latest.zip';
 
 exit main();
 
-sub main {  
-    my $help;
-    my $lib_folder     = File::Spec->catfile(
-        dirname($INC{File::Spec->catfile('Mobile', 'Devices', 'Base.pm')}),
-        '..',
-        '..',
-    );
-    my $wurfl_folder       = File::Spec->catfile($lib_folder, 'Mobile', 'Devices');;
+sub main {
+    my $loop_options       = Mobile::Devices::Loop::GetOptions->new() or pod2usage();
+    my $wurfl_folder       = $loop_options->wurfl_folder;
+    my $wurfl_filename     = $loop_options->wurfl_filename;
     my $wurfl_zip_filename = File::Spec->catfile($wurfl_folder, 'wurfl.zip');;
-    my $wurfl_filename     = File::Spec->catfile($wurfl_folder, 'wurfl.xml');;
-    GetOptions(
-        'help|h'    => \$help,
-        'wurfl|w=s' => \$wurfl_filename,
-        'lib|l=s'   => \$lib_folder,
-    ) or pod2usage;
-    pod2usage if $help;
+    die 'no such folder or not writable "'.$wurfl_folder.'"'."\n"
+        if (not -w $wurfl_folder);
 
+    # mirror latest zipped wurfl xml file
     my $status_code = mirror($WURFL_URL, $wurfl_zip_filename);
     if ($status_code == RC_NOT_MODIFIED) {
         return 0

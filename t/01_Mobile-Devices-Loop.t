@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 #use Test::More 'no_plan';
-use Test::More tests => 4;
+use Test::More tests => 5;
 use Test::Differences;
 
 use FindBin qw($Bin);
@@ -31,9 +31,10 @@ sub main {
 	$device_loop->next_device();
 	my $device = $device_loop->next_device();
 	
+	isa_ok($device->{'dom'}, 'XML::LibXML::Element', 'we should have dom of each device isa XML::LibXML::Element');
 	eq_or_diff(
 		$device,
-		xhtml_hash(),
+		xhtml_hash($device->{'dom'}),
 		'check device information'
 	);	
 	
@@ -64,7 +65,9 @@ sub version_hash {
 }
 
 sub xhtml_hash {
-	return {
+	my $dom = shift;
+	return bless {
+	  'dom' => $dom,
 	  'user_agent' => 'Mozz',
 	  'fall_back' => 'generic',
 	  'id' => 'generic_xhtml',
@@ -167,5 +170,5 @@ sub xhtml_hash {
 							 ]
 			 }
 	   ],
-	};
+	}, 'Mobile::Devices::Loop::Device';
 }

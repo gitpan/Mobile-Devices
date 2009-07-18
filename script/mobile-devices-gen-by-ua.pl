@@ -19,13 +19,10 @@ mobile-devices-gen-by-ua.pl - generate Mobile/Devices/byUA/
 use strict;
 use version;
 
-use Mobile::Devices;
-use Mobile::Devices::Loop;
+use Mobile::Devices::Loop::GetOptions;
 use File::Basename 'dirname';
-use File::Spec;
 use File::Path 'mkpath';
 use FindBin '$Bin';
-use Getopt::Long;
 use Pod::Usage;
 
 use Mobile::Devices::Base;
@@ -34,31 +31,12 @@ use Mobile::Devices::Base;
 exit main();
 
 sub main {  
-    my $help;
-    my $wurfl_filename = File::Spec->catfile(
-        dirname($INC{File::Spec->catfile('Mobile', 'Devices', 'Base.pm')}),
-        'wurfl.xml',
-    );
-    my $lib_folder     = File::Spec->catfile(
-        dirname($INC{File::Spec->catfile('Mobile', 'Devices', 'Base.pm')}),
-        '..',
-        '..',
-    );
-    GetOptions(
-        'help|h'    => \$help,
-        'wurfl|w=s' => \$wurfl_filename,
-        'lib|l=s'   => \$lib_folder,
-    ) or pod2usage;
-    pod2usage if $help;
-
-    my $device_loop = Mobile::Devices::Loop->new(
-        wurfl_xml_filename => , $wurfl_filename,
-    );
-    my $devices = Mobile::Devices->new(
-        'search_base' => $lib_folder,
-    );
+    my $loop_options = Mobile::Devices::Loop::GetOptions->new() or pod2usage();
+    my $lib_folder   = $loop_options->lib_folder;
+    my $devices_loop = $loop_options->devices_loop;
+    my $devices      = $loop_options->devices;
     
-    while (my $device = $device_loop->next_device()) {
+    while (my $device = $devices_loop->next_device()) {
         next if not $device->{'user_agent'};
         
         my $filename = $devices->ua_to_filename($device->{'user_agent'});

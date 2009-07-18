@@ -1,6 +1,6 @@
 ---
 name: Mobile-Devices
-version: 0.02
+version: 0.03
 author:
   - 'Jozef Kutej <jozef@kutej.net>'
 abstract: search for and get mobile device information
@@ -29,14 +29,19 @@ build_requires:
 provides:
   Mobile::Devices:
     file: lib/Mobile/Devices.pm
-    version: 0.02
+    version: 0.03
   Mobile::Devices::Base:
     file: lib/Mobile/Devices/Base.pm
     version: 0.01
   Mobile::Devices::Loop:
     file: lib/Mobile/Devices/Loop.pm
     version: 0.01
-generated_by: Module::Build version 0.3
+  Mobile::Devices::Loop::Device:
+    file: lib/Mobile/Devices/Loop.pm
+  Mobile::Devices::Loop::GetOptions:
+    file: lib/Mobile/Devices/Loop/GetOptions.pm
+    version: 0.01
+generated_by: Module::Build version 0.33
 meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4

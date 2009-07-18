@@ -1,5 +1,10 @@
 Revision history for Mobile::Device
 
+0.03    18.07.2009
+    * added groups and group<->capabilities mapping to Root.pm
+    * some new capabilites added
+    * Mobile::Devices::Loop::GetOptions added
+
 0.02    26.03.2009
     * Build.PL fix
 

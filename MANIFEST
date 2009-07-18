@@ -1,9 +1,11 @@
 Build.PL
 Changes
+examples/filter.pl
 examples/print.pl
 lib/Mobile/Devices.pm
 lib/Mobile/Devices/Base.pm
 lib/Mobile/Devices/Loop.pm
+lib/Mobile/Devices/Loop/GetOptions.pm
 lib/Mobile/Devices/wurfl.xsd
 Makefile.PL
 MANIFEST

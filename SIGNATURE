@@ -15,22 +15,24 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 13184aef15e56029866738397aed325c59bdbe76 Build.PL
-SHA1 0d90277a9dcc6da13172bb559182c6db65950b43 Changes
-SHA1 2a4533c4e106dbc9e554ab2cb4bba41c63824a85 MANIFEST
-SHA1 4982379a1a6a52832744c8786c15688b2edfab3a META.yml
-SHA1 73356828aabb1b6f61729ded3fcff3c7258639fa Makefile.PL
-SHA1 8c255539f0b48e5ab82265145082f70511f6ff5f README
+SHA1 6374062092fa7594930fa454ec40ff23756413a4 Changes
+SHA1 6f8e4f03824d14432d56181367585c086e9ed472 MANIFEST
+SHA1 e453bb658c7d1f7dccc1e0cc4b7e548ca7dfe95e META.yml
+SHA1 cfe045fced699ab670e4072faf00fb405f4ee216 Makefile.PL
+SHA1 4c7c7582e6b8d6856dd9876979106da23df75595 README
+SHA1 d65018cdf64668dd1c44a468f09f994eeecfdc66 examples/filter.pl
 SHA1 8c76867b10efa9a93eee5a49a2348c0ddeffc6d1 examples/print.pl
-SHA1 b71f4d48d1ed432646e7b6307561081151f58c5e lib/Mobile/Devices.pm
-SHA1 9faef17bb7801280a96f332bc5f9447720650f41 lib/Mobile/Devices/Base.pm
-SHA1 98bb4ba61006c01713afb9e05e04fe98504c46d1 lib/Mobile/Devices/Loop.pm
-SHA1 ddef4a97839a3840e3bc494779a53beca6e0dca5 lib/Mobile/Devices/wurfl.xsd
-SHA1 6247128723c5e2543049757c92e911a8c6ab95e9 script/mobile-devices-fresh-wurfl.pl
-SHA1 9186c0a29f111e5f807d48459fa800ad225e8a3a script/mobile-devices-gen-by-id.pl
-SHA1 75ad2c691467f122b1a8725373ea2ec10b2210c0 script/mobile-devices-gen-by-ua.pl
-SHA1 6f31d0a1adfdeb82a5ccc67bf82a8d3a84121d29 script/mobile-devices-gen-list-of-uas-ids.pl
+SHA1 3ba7c6a0b21b840284a554993ec73a21181e9894 lib/Mobile/Devices.pm
+SHA1 c7204908a1a45ed0c945abc9b3686ae688d2a405 lib/Mobile/Devices/Base.pm
+SHA1 b92b8697c43c5c215334a5c022f48f2c362fa0b1 lib/Mobile/Devices/Loop.pm
+SHA1 947581ab3f0c31b55fcde5b079331dab806daf85 lib/Mobile/Devices/Loop/GetOptions.pm
+SHA1 e727c18025fd3684a4b28241d04c4cff127a659c lib/Mobile/Devices/wurfl.xsd
+SHA1 06be09f2fe7b4a7644149df10efdbe9a1fef1b7e script/mobile-devices-fresh-wurfl.pl
+SHA1 2e546ab3450343046a01066eeae98872527df1fd script/mobile-devices-gen-by-id.pl
+SHA1 d28c70aadc46e0531ed9380f92853b6ae7e909ac script/mobile-devices-gen-by-ua.pl
+SHA1 289b2f1d26900a623dd14c30307c9a7c9fb4e536 script/mobile-devices-gen-list-of-uas-ids.pl
 SHA1 605f05a5336cc37a476bb10b218f5ad1a2bd340d t/00_compile.t
-SHA1 41a34602a2fd48060d355f7cee3e35f301e07dfc t/01_Mobile-Devices-Loop.t
+SHA1 5e18942601d0ddd05f9b9aa074b432ecf09c6d4c t/01_Mobile-Devices-Loop.t
 SHA1 21fa36c1562fa428016f375be21e534f3070f13e t/02_Mobile-Devices.t
 SHA1 41533fbd463e42d2ecf1e119eca910c16809d13e t/distribution.t
 SHA1 d2053a57fe67fbc7ec81f326144711657e0dc70b t/lib/Mobile/Devices/byID/e/ic/ericsson_generic.pm
@@ -57,7 +59,7 @@ SHA1 0d9c5d0223f28824309ac2ee6af272380978fabd t/wurfl-testing.xml
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.9 (GNU/Linux)
 
-iEYEARECAAYFAknLMXgACgkQC0OgUPgL2SeyRQCeLj2bkP3NJKv2KW1zrH01DTfQ
-8roAn0UtUcUEaFCuqkIGRjhohrCEOler
-=QPru
+iEYEARECAAYFAkpiL6cACgkQC0OgUPgL2ScMhwCeJ47q167z+gp/KxxJqM0WdjrH
+Mt4AniGo69PDn3PdRw7Rll36hFjPQyge
+=wujP
 -----END PGP SIGNATURE-----

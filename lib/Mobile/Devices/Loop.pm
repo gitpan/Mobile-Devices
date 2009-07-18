@@ -18,14 +18,9 @@ Mobile::Devices::Loop - loop through WURFL mobile devices
 		print 'user_agent: ', $device->{'user_agent'}, "\n"
 			if $device->{'user_agent'};
 		
-		my %capabilities = map {
-				map {
-					$_->{'name'} => $_->{'value'}
-				} @{$_->{'capability'}}
-			} @{$device->{'group'}}
-		;
-		print 'model_name: ', $capabilities{'model_name'}, "\n"
-			if $capabilities{'model_name'};
+		my $capabilities = $device->capabilities;
+		print 'model_name: ', $capabilities->{'model_name'}, "\n"
+			if $capabilities->{'model_name'};
 		
 	}
 
@@ -120,7 +115,10 @@ sub next_device {
     	if (not $reader->nextElement('device'));
     
 	my $device_dom = $reader->copyCurrentNode(1);
-	return $self->_device_reader->($device_dom);
+	return Mobile::Devices::Loop::Device->new({
+		%{$self->_device_reader->($device_dom)},
+		'dom' => $device_dom,
+	});
 }
 
 
@@ -146,6 +144,23 @@ sub version_date {
 
 1;
 
+
+package Mobile::Devices::Loop::Device;
+
+use base 'Class::Accessor::Fast';
+
+sub capabilities {
+	my $self = shift;
+	my %capabilities = map {
+		map {
+			$_->{'name'} => $_->{'value'}
+		} @{$_->{'capability'}}
+	} @{$self->{'group'}};
+	
+	return \%capabilities;
+}
+
+1;
 
 __END__
 

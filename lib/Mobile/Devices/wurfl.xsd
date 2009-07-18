@@ -126,6 +126,7 @@
 		<xs:enumeration value="cache" />
 		<xs:enumeration value="chtml_ui" />
 		<xs:enumeration value="css" />
+		<xs:enumeration value="deprecated" />
 		<xs:enumeration value="display" />
 		<xs:enumeration value="drm" />
 		<xs:enumeration value="flash_lite" />
@@ -335,6 +336,7 @@
 		<xs:enumeration value="j2me_wmapi_1_1" />
 		<xs:enumeration value="j2me_wmapi_2_0" />
 		<xs:enumeration value="j2me_xmf" />
+		<xs:enumeration value="j2me_locapi" />
 		<xs:enumeration value="jpg" />
 		<xs:enumeration value="largeoperatorlogo" />
 		<xs:enumeration value="marketing_name" />
@@ -405,6 +407,7 @@
 		<xs:enumeration value="multipart_support" />
 		<xs:enumeration value="nokia_edition" />
 		<xs:enumeration value="nokiaring" />
+		<xs:enumeration value="nokia_feature_pack" />
 		<xs:enumeration value="nokia_ringtone" />
 		<xs:enumeration value="nokia_series" />
 		<xs:enumeration value="nokiavcal" />
@@ -567,6 +570,7 @@
 		<xs:enumeration value="streaming_video_vcodec_h264" />
 		<xs:enumeration value="streaming_video_vcodec_mpeg4" />
 		<xs:enumeration value="streaming_wmv" />
+		<xs:enumeration value="streaming_preferred_protocol" />
 		<xs:enumeration value="svgt_1_1" />
 		<xs:enumeration value="svgt_1_1_plus" />
 		<xs:enumeration value="table_support" />
@@ -650,6 +654,7 @@
 		<xs:enumeration value="wta_pdc" />
 		<xs:enumeration value="wta_phonebook" />
 		<xs:enumeration value="wta_voice_call" />
+		<xs:enumeration value="xhtml_avoid_accesskeys" />
 		<xs:enumeration value="xhtml_allows_disabled_form_elements" />
 		<xs:enumeration value="xhtml_autoexpand_select" />
 		<xs:enumeration value="xhtml_display_accesskey" />

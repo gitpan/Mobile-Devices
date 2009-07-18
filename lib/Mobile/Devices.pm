@@ -21,7 +21,7 @@ Search for and get mobile device information. Data are from WURFL.
 use warnings;
 use strict;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use base 'Class::Accessor::Fast';
 use File::Spec;
